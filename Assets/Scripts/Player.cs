@@ -6,27 +6,45 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float mouseSensitivity = 1f;
-    public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
-    public RotationAxes axes = RotationAxes.MouseXAndY;
+    [SerializeField] float forceAmount = 1f;
+
+    //Camera Fields
+    enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
+    RotationAxes axes = RotationAxes.MouseXAndY;
     float rotationX = 0f;
     float rotationY = 0f;
-
-    public float minimumX = -360F;
-    public float maximumX = 360F;
-    public float minimumY = -60F;
-    public float maximumY = 60F;
+    float minimumX = -360F;
+    float maximumX = 360F;
+    float minimumY = -60F;
+    float maximumY = 60F;
     Quaternion originalRotation;
+
+    // movement fields
+    Rigidbody rb;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        originalRotation = Quaternion.identity;
+        rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Physics.gravity = new Vector3(0f, -1f, 0f);
     }
-
+    
     // Update is called once per frame
     void Update()
     {
         lookAround();
+        MoveInDirection();
+    }
+
+    private void MoveInDirection()
+    {
+        if (Input.GetButtonDown("Fire1")) { 
+            Vector3 thrust = forceAmount * transform.forward;
+            rb.AddForce(thrust, ForceMode.Impulse);
+        }
     }
 
     private void lookAround()
@@ -41,6 +59,8 @@ public class Player : MonoBehaviour
             Quaternion yQuaternion = Quaternion.AngleAxis(rotationY, -Vector3.right);
 
             transform.localRotation = originalRotation * xQuaternion * yQuaternion;
+            Debug.Log(rotationX);
+
         }
         else if (axes == RotationAxes.MouseX)
         {
