@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField] float mouseSensitivity = 1f;
     [SerializeField] float forceAmount = 1f;
 
-    //Camera Fields
+    // Camera Fields
+    // used https://answers.unity.com/questions/29741/mouse-look-script.html
     enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
     RotationAxes axes = RotationAxes.MouseXAndY;
     float rotationX = 0f;
