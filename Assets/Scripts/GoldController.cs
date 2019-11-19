@@ -20,9 +20,5 @@ public class GoldController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else
-        {
-            Debug.Log("my parent is " + transform.parent);
-        }
     }
 }

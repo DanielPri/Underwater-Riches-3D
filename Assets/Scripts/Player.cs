@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     Rigidbody rb;
     bool canMove = true;
     GameObject fan;
-    
+    GameObject recepticle;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Physics.gravity = new Vector3(0f, -1f, 0f);
         fan = GameObject.Find("SpinController");
+        recepticle = GameObject.Find("Recepticle");
     }
     
     // Update is called once per frame
@@ -79,7 +80,13 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "Gold")
         {
-            collision.gameObject.transform.SetParent(this.transform);
+            var goldpiece = collision.gameObject;
+            goldpiece.transform.SetParent(this.transform);
+            goldpiece.transform.localPosition = recepticle.transform.localPosition;
+
+            var goldpieceRb = goldpiece.GetComponent<Rigidbody>();
+            goldpieceRb.isKinematic = true;
+            goldpieceRb.detectCollisions = false;
         }
     }
 
