@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameZone
   - Gold
+  - Ship
   layers:
   - Default
   - TransparentFX

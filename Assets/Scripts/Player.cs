@@ -8,7 +8,9 @@ public class Player : MonoBehaviour
     [SerializeField] float mouseSensitivity = 1f;
     [SerializeField] float forceAmount = 1f;
     [SerializeField] float rotateAmount = 1f;
-
+    //[SerializeField] GameObject thirdPersonCamera;
+    
+    
     // Camera Fields
     // used https://answers.unity.com/questions/29741/mouse-look-script.html
     enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour
     float minimumY = -60F;
     float maximumY = 60F;
     Quaternion originalRotation;
+    
 
     // movement fields
     Rigidbody rb;
@@ -45,6 +48,7 @@ public class Player : MonoBehaviour
         MoveInDirection();
         AnimateFan();
         Debug.Log(canMove);
+
     }
 
     private void AnimateFan()
@@ -87,6 +91,16 @@ public class Player : MonoBehaviour
             var goldpieceRb = goldpiece.GetComponent<Rigidbody>();
             goldpieceRb.isKinematic = true;
             goldpieceRb.detectCollisions = false;
+        }
+        if (collision.gameObject.tag == "Ship")
+        {
+            foreach(Transform child in transform)
+            {
+                if(child.tag == "Gold")
+                {
+                    Destroy(child.gameObject);
+                }
+            }
         }
     }
 
