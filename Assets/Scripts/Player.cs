@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     // movement fields
     Rigidbody rb;
-
+    bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -38,11 +38,30 @@ public class Player : MonoBehaviour
     {
         lookAround();
         MoveInDirection();
+        Debug.Log(canMove);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "GameZone")
+        {
+            Physics.gravity = new Vector3(0f, -9.8f, 0f);
+            canMove = false;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "GameZone")
+        {
+            Physics.gravity = new Vector3(0f, -1f, 0f);
+            canMove = true;
+        }
     }
 
     private void MoveInDirection()
     {
-        if (Input.GetButtonDown("Fire1")) { 
+        if (Input.GetButtonDown("Fire1") && canMove) { 
             Vector3 thrust = forceAmount * transform.forward;
             rb.AddForce(thrust, ForceMode.Impulse);
         }
@@ -60,7 +79,6 @@ public class Player : MonoBehaviour
             Quaternion yQuaternion = Quaternion.AngleAxis(rotationY, -Vector3.right);
 
             transform.localRotation = originalRotation * xQuaternion * yQuaternion;
-            Debug.Log(rotationX);
 
         }
         else if (axes == RotationAxes.MouseX)
@@ -87,4 +105,6 @@ public class Player : MonoBehaviour
          angle -= 360f;
         return Mathf.Clamp(angle, min, max);
     }
+
+
 }
