@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float mouseSensitivity = 1f;
     [SerializeField] float forceAmount = 1f;
+    [SerializeField] float rotateAmount = 1f;
 
     // Camera Fields
     // used https://answers.unity.com/questions/29741/mouse-look-script.html
@@ -23,6 +24,8 @@ public class Player : MonoBehaviour
     // movement fields
     Rigidbody rb;
     bool canMove = true;
+    GameObject fan;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +34,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Physics.gravity = new Vector3(0f, -1f, 0f);
+        fan = GameObject.Find("SpinController");
     }
     
     // Update is called once per frame
@@ -38,7 +42,17 @@ public class Player : MonoBehaviour
     {
         lookAround();
         MoveInDirection();
+        AnimateFan();
         Debug.Log(canMove);
+    }
+
+    private void AnimateFan()
+    {
+        if (fan != null)
+        {
+            float speed = rb.velocity.magnitude;
+            fan.transform.Rotate(0, -rotateAmount * speed * Time.deltaTime, 0, Space.Self);
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -46,6 +60,7 @@ public class Player : MonoBehaviour
         if(other.tag == "GameZone")
         {
             Physics.gravity = new Vector3(0f, -9.8f, 0f);
+            rb.drag = 0.5f;
             canMove = false;
         }
     }
@@ -55,7 +70,16 @@ public class Player : MonoBehaviour
         if (other.tag == "GameZone")
         {
             Physics.gravity = new Vector3(0f, -1f, 0f);
+            rb.drag = 1f;
             canMove = true;
+        }
+    }
+
+    void OnCollisionEnter (Collision collision)
+    {
+        if(collision.gameObject.tag == "Gold")
+        {
+            collision.gameObject.transform.SetParent(this.transform);
         }
     }
 
