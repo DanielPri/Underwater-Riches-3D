@@ -110,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4699047899234668718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.02}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4699047898982729906}
@@ -153,6 +153,8 @@ MonoBehaviour:
   mouseSensitivity: 1
   forceAmount: 1000
   rotateAmount: 30
+  distraction: {fileID: 4738232187961765647, guid: a26c8433cba329d4aa0a037756b20bce,
+    type: 3}
 --- !u!135 &2285386202490843348
 SphereCollider:
   m_ObjectHideFlags: 0

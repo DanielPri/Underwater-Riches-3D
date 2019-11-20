@@ -9,6 +9,7 @@ TagManager:
   - Ship
   - Enemy
   - OxygenTank
+  - Distraction
   layers:
   - Default
   - TransparentFX

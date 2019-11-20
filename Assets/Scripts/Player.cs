@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] float mouseSensitivity = 1f;
     [SerializeField] float forceAmount = 1f;
     [SerializeField] float rotateAmount = 1f;
+    [SerializeField] GameObject distraction;
     //[SerializeField] GameObject thirdPersonCamera;
     
     
@@ -52,9 +53,17 @@ public class Player : MonoBehaviour
         lookAround();
         MoveInDirection();
         AnimateFan();
-        Debug.Log(canMove);
+        HandleDistraction();
         HandleDeath();
 
+    }
+
+    private void HandleDistraction()
+    {
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Instantiate(distraction, transform.position, transform.rotation);
+        }
     }
 
     private void HandleDeath()
@@ -143,6 +152,7 @@ public class Player : MonoBehaviour
             Vector3 thrust = forceAmount * transform.forward;
             rb.AddForce(thrust, ForceMode.Impulse);
         }
+        globalData.velocity = rb.velocity.magnitude;
     }
 
     private void lookAround()

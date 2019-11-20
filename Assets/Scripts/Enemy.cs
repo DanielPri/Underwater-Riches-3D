@@ -51,9 +51,9 @@ public class Enemy : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, something, aggroSpeed * Time.deltaTime);
     }
     
-    public void RotateToPlayer()
+    public void RotateToSomething(Vector3 somethingLocation)
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerLocation - transform.position), turnSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(somethingLocation - transform.position), turnSpeed * Time.deltaTime);
     }
 
 
