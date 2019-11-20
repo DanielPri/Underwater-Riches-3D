@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] GameGlobal globalData;
+    GameGlobal globalData;
 
     [SerializeField] float mouseSensitivity = 1f;
     [SerializeField] float forceAmount = 1f;
     [SerializeField] float rotateAmount = 1f;
     [SerializeField] GameObject distraction;
-    //[SerializeField] GameObject thirdPersonCamera;
+    [SerializeField] GameObject thirdPersonCamera;
     
     
     // Camera Fields
@@ -36,17 +36,31 @@ public class Player : MonoBehaviour
     GameObject recepticle;
     int hitpoints = 2;
 
+    public Action respawn;
+
     // Start is called before the first frame update
     void Start()
     {
+        globalData = GameObject.Find("GameManager").GetComponent<GameGlobal>();
         originalRotation = Quaternion.identity;
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Physics.gravity = new Vector3(0f, -1f, 0f);
         fan = GameObject.Find("SpinController");
         recepticle = GameObject.Find("Recepticle");
+        thirdPersonCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        AssignCameraToPlayer();
+        respawn += globalData.respawn;
     }
-    
+
+    private void AssignCameraToPlayer()
+    {
+        Transform cameraHolder = transform.Find("CameraHolder");
+        thirdPersonCamera.transform.SetParent(transform);
+        thirdPersonCamera.transform.position = cameraHolder.position;
+        thirdPersonCamera.transform.rotation = cameraHolder.rotation;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -73,6 +87,9 @@ public class Player : MonoBehaviour
             Destroy(gameObject, 2);
             globalData.lives--;
             hitpoints = 2;
+            thirdPersonCamera.transform.SetParent(null);
+            //canMove = false;
+            respawn();
         }
     }
 

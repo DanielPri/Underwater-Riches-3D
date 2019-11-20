@@ -43,6 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b859690ce8b12744f893cdb302900e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 4699047899234668718, guid: 707ffdc22d57b594f8bded4bf3907051,
+    type: 3}
   levelDuration: 60
   goldFrequency: 1
   sharkFrequncy: 5
+  velocity: 0
+  score: 0
+  lives: 2
