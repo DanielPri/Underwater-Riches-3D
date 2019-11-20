@@ -53,6 +53,5 @@ public class EnemySpawner : MonoBehaviour
             elapsedTimeShark = 0f;
         }
         elapsedTimeShark += Time.deltaTime;
-        Debug.Log(elapsedTimeShark);
     }
 }

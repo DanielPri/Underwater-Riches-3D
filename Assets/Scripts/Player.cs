@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] GameGlobal globalData;
+
     [SerializeField] float mouseSensitivity = 1f;
     [SerializeField] float forceAmount = 1f;
     [SerializeField] float rotateAmount = 1f;
@@ -27,8 +29,11 @@ public class Player : MonoBehaviour
     // movement fields
     Rigidbody rb;
     bool canMove = true;
+
+    // Player attributes
     GameObject fan;
     GameObject recepticle;
+    int hitpoints = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +53,18 @@ public class Player : MonoBehaviour
         MoveInDirection();
         AnimateFan();
         Debug.Log(canMove);
+        HandleDeath();
 
+    }
+
+    private void HandleDeath()
+    {
+        if (hitpoints == 0)
+        {
+            Destroy(gameObject, 2);
+            globalData.lives--;
+            hitpoints = 2;
+        }
     }
 
     private void AnimateFan()
@@ -82,6 +98,8 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter (Collision collision)
     {
+        Debug.Log("Hit something");
+        //Handle gold
         if(collision.gameObject.tag == "Gold")
         {
             var goldpiece = collision.gameObject;
@@ -92,6 +110,7 @@ public class Player : MonoBehaviour
             goldpieceRb.isKinematic = true;
             goldpieceRb.detectCollisions = false;
         }
+        //Handle Score
         if (collision.gameObject.tag == "Ship")
         {
             foreach(Transform child in transform)
@@ -99,6 +118,20 @@ public class Player : MonoBehaviour
                 if(child.tag == "Gold")
                 {
                     Destroy(child.gameObject);
+                    globalData.score++;
+                }
+            }
+        }
+        //Handle Enemies
+        if(collision.gameObject.tag == "Enemy")
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.tag == "OxygenTank")
+                {
+                    child.SetParent(null);
+                    hitpoints--;
+                    break;
                 }
             }
         }
