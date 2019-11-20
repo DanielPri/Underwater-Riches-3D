@@ -7,13 +7,56 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected float speed = 1f;
 
-    void Update()
+    [SerializeField]
+    protected float aggroSpeed = 5f;
+
+    [SerializeField]
+    protected float aggroDistance = 60f;
+
+    [SerializeField]
+    protected float turnSpeed = 1000f;
+
+    protected Rigidbody rb;
+    protected GameObject player;
+
+    protected Vector3 playerLocation;
+    public float distanceFromPlayer;
+
+    Quaternion initialRotation;
+
+    protected void Start()
     {
-        move();
+        player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponent<Rigidbody>();
+        initialRotation = transform.rotation;
     }
 
-    private void move()
+    protected void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        if (player != null)
+        {
+            playerLocation = player.transform.position;
+            distanceFromPlayer = (transform.position - playerLocation).magnitude;
+        }
     }
+
+    protected void move()
+    {
+        transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
+        transform.rotation = Quaternion.Slerp(transform.rotation, initialRotation, turnSpeed * Time.deltaTime);
+    }
+
+    protected void moveTowardsSomething(Vector3 something)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, something, aggroSpeed * Time.deltaTime);
+    }
+    
+    public void RotateToPlayer()
+    {
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerLocation - transform.position), turnSpeed * Time.deltaTime);
+    }
+
+
+
+
 }

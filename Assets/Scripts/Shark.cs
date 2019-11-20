@@ -4,11 +4,27 @@ using UnityEngine;
 
 public class Shark : Enemy
 {
-    [SerializeField]
-    float sharkSpeed = 5f;
-
-    void Start()
+    new void Start()
     {
-        speed = sharkSpeed;
+        base.Start();
+    }
+
+    new void Update()
+    {
+        base.Update();
+        motionDecision();
+    }
+
+    void motionDecision()
+    {
+        if(distanceFromPlayer <= aggroDistance)
+        {
+            moveTowardsSomething(playerLocation);
+            RotateToPlayer();
+        }
+        else
+        {
+            move();
+        }
     }
 }
