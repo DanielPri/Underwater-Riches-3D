@@ -9,7 +9,7 @@ public class GoldGenerator : MonoBehaviour
     GameGlobal globalData;
 
     [SerializeField]
-    GameObject goldbarPrefab;
+    List<GameObject> goldbarPrefabs;
 
     [SerializeField]
     GameObject testPoint;
@@ -46,10 +46,11 @@ public class GoldGenerator : MonoBehaviour
     {
         if (elapsedDuration > goldFrequency)
         {
+            int prefabToSpawn = UnityEngine.Random.Range(0, goldbarPrefabs.Count);
             float randomX = UnityEngine.Random.Range(terrainMinX, terrainMaxX);
             float randomZ = UnityEngine.Random.Range(terrainMinZ, terrainMaxZ);
             float heightY = Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 0, randomZ));
-            Instantiate(goldbarPrefab, new Vector3(randomX, heightY - 95, randomZ),Quaternion.identity);
+            Instantiate(goldbarPrefabs[prefabToSpawn], new Vector3(randomX, heightY - 95, randomZ),Quaternion.identity);
 
             elapsedDuration = 0f;
         }

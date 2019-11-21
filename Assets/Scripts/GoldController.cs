@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class GoldController : MonoBehaviour
 {
-    [SerializeField]
-    float lifespan = 60f;
+    [SerializeField] float lifespan = 60f;
+
+    [SerializeField]public int value = 1;
 
     float timeElapsed;
     Light goldlight;
+
+    
 
     void Start()
     {

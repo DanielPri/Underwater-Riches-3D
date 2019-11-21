@@ -143,8 +143,8 @@ public class Player : MonoBehaviour
             {
                 if(child.tag == "Gold")
                 {
+                    globalData.score += child.GetComponent<GoldController>().value;
                     Destroy(child.gameObject);
-                    globalData.score++;
                 }
             }
         }
