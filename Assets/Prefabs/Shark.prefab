@@ -1151,8 +1151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36333e8f2e8c86341ba2f0489ca0f68e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  aggroSpeed: 2
+  speed: 4
+  aggroSpeed: 6
   aggroDistance: 40
   turnSpeed: 1
   distanceFromPlayer: 0

@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     // movement fields
     Rigidbody rb;
     bool canMove = true;
+    float rb_mass;
 
     // Player attributes
     GameObject fan;
@@ -44,6 +45,7 @@ public class Player : MonoBehaviour
         globalData = GameObject.Find("GameManager").GetComponent<GameGlobal>();
         originalRotation = Quaternion.identity;
         rb = GetComponent<Rigidbody>();
+        rb_mass = rb.mass;
         Cursor.lockState = CursorLockMode.Locked;
         Physics.gravity = new Vector3(0f, -1f, 0f);
         fan = GameObject.Find("SpinController");
@@ -135,6 +137,8 @@ public class Player : MonoBehaviour
             var goldpieceRb = goldpiece.GetComponent<Rigidbody>();
             goldpieceRb.isKinematic = true;
             goldpieceRb.detectCollisions = false;
+
+            rb.mass += goldpiece.GetComponent<GoldController>().value*10f;
         }
         //Handle Score
         if (collision.gameObject.tag == "Ship")
@@ -145,6 +149,7 @@ public class Player : MonoBehaviour
                 {
                     globalData.score += child.GetComponent<GoldController>().value;
                     Destroy(child.gameObject);
+                    rb.mass = rb_mass;
                 }
             }
         }
