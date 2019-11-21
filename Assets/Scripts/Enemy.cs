@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     protected float aggroDistance = 60f;
 
     [SerializeField]
-    protected float turnSpeed = 1000f;
+    protected float turnSpeed = 1f;
 
     protected Rigidbody rb;
     protected GameObject player;
@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         initialRotation = transform.rotation;
+
+        
     }
 
     protected void Update()
@@ -37,6 +39,10 @@ public class Enemy : MonoBehaviour
         {
             playerLocation = player.transform.position;
             distanceFromPlayer = (transform.position - playerLocation).magnitude;
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
         }
     }
 

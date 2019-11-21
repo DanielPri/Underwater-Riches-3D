@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - OxygenTank
   - Distraction
+  - Wall
   layers:
   - Default
   - TransparentFX

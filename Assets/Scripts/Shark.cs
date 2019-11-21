@@ -7,10 +7,12 @@ public class Shark : Enemy
 {
     GameObject distraction;
     float distanceFromDistraction = 999;
+    float initialPositionX;
 
     new void Start()
     {
         base.Start();
+        initialPositionX = transform.position.x;
     }
 
     new void Update()
@@ -54,4 +56,12 @@ public class Shark : Enemy
             move();
         }
     }
-}
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Wall")
+        {
+            transform.position = new Vector3(initialPositionX, transform.position.y, transform.position.z);
+        }
+    }
+    }

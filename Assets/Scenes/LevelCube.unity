@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 6180873}
   m_Layer: 0
   m_Name: GameObject (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +150,7 @@ Transform:
   m_Children:
   - {fileID: 2102746869}
   m_Father: {fileID: 1879880597}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6180873
 BoxCollider:
@@ -397,8 +397,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &460103382
-BoxCollider:
+--- !u!136 &460103382
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -407,9 +407,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5.1179314, y: 10.162815, z: 19.64831}
-  m_Center: {x: -0.12517262, y: 3.5940762, z: 0.5485716}
+  m_Radius: 1.9
+  m_Height: 20.1
+  m_Direction: 2
+  m_Center: {x: 0, y: 1.78, z: 0.6}
 --- !u!4 &460103385
 Transform:
   m_ObjectHideFlags: 0
@@ -1527,13 +1528,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825021962}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 585312864}
   m_Father: {fileID: 1879880597}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1825021964
 BoxCollider:
@@ -1559,7 +1560,7 @@ GameObject:
   - component: {fileID: 1879880597}
   m_Layer: 0
   m_Name: GameWalls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1577,8 +1578,8 @@ Transform:
   m_Children:
   - {fileID: 971385778}
   - {fileID: 13852432}
-  - {fileID: 6180872}
   - {fileID: 1825021963}
+  - {fileID: 6180872}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1792,6 +1793,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1994694514398099379, guid: cb0518d2d2a56b24dab920460621942d,
+        type: 3}
+      propertyPath: octopus
+      value: 
+      objectReference: {fileID: 8441592731506947640, guid: 449a4b927ee507342ba5e09c42025877,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb0518d2d2a56b24dab920460621942d, type: 3}
 --- !u!1 &2094409853
