@@ -3243,7 +3243,9 @@ MonoBehaviour:
   aggroSpeed: 5
   aggroDistance: 60
   turnSpeed: 1
+  globalData: {fileID: 0}
   distanceFromPlayer: 0
+  lifetime: 50
 --- !u!54 &4770905101820476145
 Rigidbody:
   m_ObjectHideFlags: 0

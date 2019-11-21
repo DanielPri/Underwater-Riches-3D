@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     // Player attributes
     GameObject fan;
     GameObject recepticle;
+    ParticleSystem particlesBubbles;
     int hitpoints = 2;
 
     public Action respawn;
@@ -45,14 +46,14 @@ public class Player : MonoBehaviour
         globalData = GameObject.Find("GameManager").GetComponent<GameGlobal>();
         originalRotation = Quaternion.identity;
         rb = GetComponent<Rigidbody>();
-        rb_mass = rb.mass;
-        Cursor.lockState = CursorLockMode.Locked;
+        rb_mass = rb.mass;        
         Physics.gravity = new Vector3(0f, -1f, 0f);
         fan = GameObject.Find("SpinController");
         recepticle = GameObject.Find("Recepticle");
         thirdPersonCamera = GameObject.FindGameObjectWithTag("MainCamera");
         AssignCameraToPlayer();
         respawn += globalData.respawn;
+        particlesBubbles = GetComponent<ParticleSystem>();
     }
 
     private void AssignCameraToPlayer()
@@ -71,7 +72,14 @@ public class Player : MonoBehaviour
         AnimateFan();
         HandleDistraction();
         HandleDeath();
+        HandleParticles();
+    }
 
+    private void HandleParticles()
+    {
+        var em = particlesBubbles.emission.rateOverTime;
+        em.constant = Mathf.Abs(globalData.velocity)* 10f;
+        
     }
 
     private void HandleDistraction()

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Octopus : Enemy
 {
+    [SerializeField] float lifetime = 20f;
+    float timeElapsed;
+
     new void Start()
     {
         base.Start();
@@ -14,6 +17,16 @@ public class Octopus : Enemy
     {
         base.Update();
         motionDecision();
+        handleDespawn();
+    }
+
+    private void handleDespawn()
+    {
+        if(timeElapsed >= lifetime)
+        {
+            Destroy(gameObject);
+        }
+        timeElapsed += Time.deltaTime;
     }
 
     void motionDecision()
